@@ -4,6 +4,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
   <title>Games Hub</title>
   <link rel="stylesheet" href="RPS.css">
   <style>
@@ -11,6 +12,7 @@
       background-color:antiquewhite;
       text-align:center;
       margin:0;
+      font-family: 'Lexend', sans-serif;
     }
     nav{
       background:black;
@@ -77,6 +79,21 @@
     #guess input{font-size:24px; padding:10px; width:120px; margin-top:20px;}
     #guess button{margin-top:20px; font-size:24px; padding:10px 20px; cursor:pointer;}
     #guessResult{font-size:28px; margin-top:20px;}
+
+    footer{
+      background-color:#333;
+      color:white;
+      padding:20px;
+      margin-top:50px;
+      font-size:16px;
+    }
+    footer a{
+      color:#4da6ff;
+      text-decoration:none;
+    }
+    footer a:hover{
+      text-decoration:underline;
+    }
   </style>
 </head>
 <body>
@@ -131,7 +148,9 @@
       <p>Computer Points: <span id="p2Score">0</span></p>
     </div>
   </div>
-
+  <footer>
+    <p>Games Hub Project | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+  </footer>
   <div id="guess" class="gameSection">
     <h1>Guess the Number!</h1>
     <p>Enter a number between 1 and 100</p>
