@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&display=swap');
+
+* {
+    font-family: 'Cabin', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;  
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    border: 2px solid black;
+    background-color: lightblue;
+}
+h1 {
+    font-size: 50px;
+}
+#options {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+img {
+    width: 150px;
+}
+button {
+    background-color: lightyellow;
+    border: none;
+    padding: 5px;
+    font-size: 17px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+button:hover {
+    box-shadow: none;
+    background: whitesmoke;
+} 
+#resetContainer {
+    margin-top: 10px;
+}
+
+
+#points {
+    display: flex;
+    gap: 400px;
+    margin-top: 20px;
+    font-size: 35px;
+}
+
+#scissorsIMG {
+    height: 200px;
+}
+
+#my-canvas{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    visibility: hidden;
+    z-index: 2;
+}
+#reset {
+    background-color: lightsalmon;
+    position: relative;
+    padding: 20px;
+    font-size: 28px;
+    width: 140px;
+    height:65px;
+    display: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+p{
+    font-size: 30px;
+}
+
+@media (max-width: 768px) {
+    #points{
+        gap:70px
+    }
+    p {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 425px) {
+    h1 {
+        font-size: 32px;
+    }
+    button {
+        padding: 8px;
+        width: 70px;
+        height: 100px;
+    }
+    #scissorsIMG {
+        width: 70px;
+        height: 80px;
+        padding-right: 15px;
+        
+    }
+
+    #paperIMG {
+        width: 70px;
+        height: 70px;
+        padding-right: 15px;
+    }
+
+    #rockIMG {
+        width: 80px;
+        height: 70px;
+        padding-right: 20px;
+    }
+
+    #points {
+        gap: 10px;
+        font-size: 20px;
+        padding: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #options {
+        gap: 10px;
+    }
+
+    p {
+        font-size: 22px;
+    }
+}

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games Hub</title>
+  <link rel="stylesheet" href="RPS.css">
+  <style>
+    body{
+      background-color:antiquewhite;
+      text-align:center;
+      margin:0;
+    }
+    nav{
+      background:black;
+      color:white;
+      display:flex;
+      justify-content:center;
+      gap:50px;
+      font-size:24px;
+      padding:15px;
+    }
+    nav span{cursor:pointer;}
+    
+    .gameSection{display:none;}
+    .active{display:block;}
+    
+    #ticTacToe h1, #guess h1{font-size:50px;}
+    
+    #resetTic, #resetGuess{
+      font-size:24px;
+      cursor:pointer;
+      background-color:white;
+      border:none;
+      border-radius:5px;
+      padding:10px 20px;
+      box-shadow:3px 3px 3px #333;
+      margin-top:20px;
+    }
+    
+    #scoreboard, #guessScoreboard{
+      font-size:30px;
+      justify-content:center;
+      align-items:center;
+      display:flex;
+      gap:150px;
+      margin-top:20px;
+    }
+    
+    #board{
+      position:relative;
+      font-size:20px;
+      margin:2% auto;
+      border-collapse:collapse;
+      color:black;
+    }
+    .game{border:4px solid black; width:90px; height:90px;}
+    .fixed{
+      height:90px;
+      width:90px;
+      line-height:90px;
+      cursor:pointer;
+      overflow:hidden;
+      font-size:40px;
+    }
+    
+    #td0{border-top:none; border-left:none;}
+    #td1{border-top:none;}
+    #td2{border-top:none; border-right:none;}
+    #td3{border-left:none;}
+    #td5{border-right:none;}
+    #td6{border-bottom:none; border-left:none;}
+    #td7{border-bottom:none;}
+    #td8{border-bottom:none; border-right:none;}
+    
+    #guess input{font-size:24px; padding:10px; width:120px; margin-top:20px;}
+    #guess button{margin-top:20px; font-size:24px; padding:10px 20px; cursor:pointer;}
+    #guessResult{font-size:28px; margin-top:20px;}
+  </style>
+</head>
+<body>
+  <nav>
+    <span data-game="rps">Rock Paper Scissors</span>
+    <span data-game="tic">Tic Tac Toe</span>
+    <span data-game="guess">Guess the Number</span>
+  </nav>
+
+  <div id="rps" class="gameSection active">
+    <div id="container">
+      <h1>Rock, Paper, Scissors!</h1>
+      <h2 id="subheading">Pick a button! 👇</h2>
+      <div id="options">
+        <button id="rock"><img src="rock.png" alt="Rock" border="0" id="rockIMG" /></button>
+        <button id="paper"><img src="paper.png" alt="Paper" border="0" id="paperIMG" /></button>
+        <button id="scissors"><img src="scissors.png" alt="Scissors" border="0" id="scissorsIMG" /></button>
+      </div>
+      <div id="resetContainer">
+        <button id="reset">Reset</button>
+      </div>
+      <div id="points">
+        <span>Player Points: <span id="userPoints">0</span></span>
+        <span>Computer Points: <span id="compPoints">0</span></span>
+      </div>
+    </div>
+    <canvas id="my-canvas"></canvas>
+  </div>
+
+  <div id="tic" class="gameSection">
+    <h1>TIC-TAC-TOE!</h1>
+    <table id="board">
+      <tr>
+        <td class="game" id="td0"><div id="cell0" class="fixed"></div></td>
+        <td class="game" id="td1"><div id="cell1" class="fixed"></div></td>
+        <td class="game" id="td2"><div id="cell2" class="fixed"></div></td>
+      </tr>
+      <tr>
+        <td class="game" id="td3"><div id="cell3" class="fixed"></div></td>
+        <td class="game" id="td4"><div id="cell4" class="fixed"></div></td>
+        <td class="game" id="td5"><div id="cell5" class="fixed"></div></td>
+      </tr>
+      <tr>
+        <td class="game" id="td6"><div id="cell6" class="fixed"></div></td>
+        <td class="game" id="td7"><div id="cell7" class="fixed"></div></td>
+        <td class="game" id="td8"><div id="cell8" class="fixed"></div></td>
+      </tr>
+    </table>
+    <button id="resetTic">Reset</button>
+    <div id="scoreboard">
+      <p>Player Points: <span id="p1Score">0</span></p>
+      <p>Computer Points: <span id="p2Score">0</span></p>
+    </div>
+  </div>
+
+  <div id="guess" class="gameSection">
+    <h1>Guess the Number!</h1>
+    <p>Enter a number between 1 and 100</p>
+    <input type="number" id="guessInput" min="1" max="100">
+    <button id="guessBtn">Guess</button>
+    <div id="guessResult"></div>
+    <button id="resetGuess">Reset</button>
+    <div id="guessScoreboard">
+      <p>Your Wins: <span id="gp1">0</span></p>
+    </div>
+  </div>
+
+  <script src="index.min.js"></script>
+  <script src="RPS.js"></script>
+  <script>
+    var navButtons = document.querySelectorAll('nav span');
+    var gameScreens = document.querySelectorAll('.gameSection');
+    
+    for(var i = 0; i < navButtons.length; i++){
+      navButtons[i].addEventListener('click', function(){
+        var gameToShow = this.getAttribute('data-game');
+        
+        for(var j = 0; j < gameScreens.length; j++){
+          gameScreens[j].classList.remove('active');
+        }
+        
+        document.getElementById(gameToShow).classList.add('active');
+      });
+    }
+
+    var cells = document.querySelectorAll('.fixed');
+    var board = ['', '', '', '', '', '', '', '', ''];
+    var isGameActive = true;
+    var player1Score = 0;
+    var player2Score = 0;
+    
+    function checkForWinner(){
+      if(board[0] && board[0] === board[1] && board[0] === board[2]) return board[0];
+      if(board[3] && board[3] === board[4] && board[3] === board[5]) return board[3];
+      if(board[6] && board[6] === board[7] && board[6] === board[8]) return board[6];
+      
+      if(board[0] && board[0] === board[3] && board[0] === board[6]) return board[0];
+      if(board[1] && board[1] === board[4] && board[1] === board[7]) return board[1];
+      if(board[2] && board[2] === board[5] && board[2] === board[8]) return board[2];
+      
+      // Check diagonals
+      if(board[0] && board[0] === board[4] && board[0] === board[8]) return board[0];
+      if(board[2] && board[2] === board[4] && board[2] === board[6]) return board[2];
+      
+      // Check for tie
+      var isTie = true;
+      for(var i = 0; i < board.length; i++){
+        if(board[i] === '') isTie = false;
+      }
+      if(isTie) return 'Tie';
+      
+      return null;
+    }
+    
+    function makeComputerMove(){
+      var emptyCells = [];
+      for(var i = 0; i < board.length; i++){
+        if(board[i] === '') emptyCells.push(i);
+      }
+      
+      if(emptyCells.length === 0) return;
+      
+      var randomNum = Math.floor(Math.random() * emptyCells.length);
+      var chosenCell = emptyCells[randomNum];
+      
+      board[chosenCell] = 'O';
+      cells[chosenCell].textContent = 'O';
+      
+      var winner = checkForWinner();
+      if(winner){
+        isGameActive = false;
+        if(winner === 'O'){
+          player2Score++;
+          document.getElementById('p2Score').textContent = player2Score;
+        }
+      }
+    }
+    
+    for(var i = 0; i < cells.length; i++){
+      cells[i].addEventListener('click', function(){
+        var cellIndex = Array.prototype.indexOf.call(cells, this);
+        
+        if(!isGameActive || board[cellIndex] !== '') return;
+        
+        board[cellIndex] = 'X';
+        this.textContent = 'X';
+        
+        var winner = checkForWinner();
+        if(winner){
+          isGameActive = false;
+          if(winner === 'X'){
+            player1Score++;
+            document.getElementById('p1Score').textContent = player1Score;
+          }
+          return;
+        }
+        
+        makeComputerMove();
+      });
+    }
+    
+    document.getElementById('resetTic').addEventListener('click', function(){
+      for(var i = 0; i < board.length; i++){
+        board[i] = '';
+        cells[i].textContent = '';
+      }
+      isGameActive = true;
+    });
+
+    // Guess the Number
+    var secretNum = Math.floor(Math.random() * 100) + 1;
+    var numTries = 0;
+    var maxTries = 7;
+    var guessWins = 0;
+    
+    document.getElementById('guessBtn').addEventListener('click', function(){
+      var userInput = document.getElementById('guessInput').value;
+      var userNum = parseInt(userInput);
+      
+      if(!userInput) return;
+      
+      numTries++;
+      
+      if(userNum === secretNum){
+        document.getElementById('guessResult').textContent = 'You guessed it in ' + numTries + ' tries!';
+        guessWins++;
+        document.getElementById('gp1').textContent = guessWins;
+      } else if(userNum < secretNum){
+        document.getElementById('guessResult').textContent = 'Too low!';
+      } else {
+        document.getElementById('guessResult').textContent = 'Too high!';
+      }
+      
+      if(numTries >= maxTries && userNum !== secretNum){
+        document.getElementById('guessResult').textContent = 'Out of tries! The number was ' + secretNum;
+      }
+    });
+    
+    document.getElementById('resetGuess').addEventListener('click', function(){
+      secretNum = Math.floor(Math.random() * 100) + 1;
+      document.getElementById('guessResult').textContent = '';
+      document.getElementById('guessInput').value = '';
+      numTries = 0;
+    });
+  </script>
+</body>
+</html>
