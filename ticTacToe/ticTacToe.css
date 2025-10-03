@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&display=swap');
+
+* {
+    font-family: 'Cabin';
+}
+body{
+    background-color: antiquewhite;
+    text-align: center;
+}
+
+#reset {
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    box-shadow: 3px 3px 3px #333;
+
+}
+
+#scoreboard {
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 150px;
+    
+}
+
+#board {
+    position: relative;
+    font-size: 20px;
+    margin: 2% auto;
+    border-collapse: collapse;
+    color: black
+}
+
+.game {
+    border:4px solid black;
+    width: 90px;
+    height: 90px;
+}
+
+.fixed {
+    height: 90px;
+    width: 90px;
+    line-height: 90px;
+    cursor: pointer;
+    overflow: hidden;
+}
+/* Removing sides to make it look like a tic-tac-toe board instead of a table */
+
+#td0 {
+    border-top: none;
+    border-left: none;
+}
+
+#td1 {
+    border-top: none;
+}
+
+#td2 {
+    border-top: none;
+    border-right: none;
+}
+
+#td3 {
+    border-left: none;
+}
+
+#td5 {
+    border-right: none;
+}
+
+#td6 {
+    border-bottom: none;
+    border-left: none;
+}
+
+#td7 {
+    border-bottom: none;
+}
+
+#td8 {
+    border-bottom: none;
+    border-right: none;
+}

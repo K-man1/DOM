@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centering Text Button</title>
+</head>
+<body>
+    
+<h1>Karman</h1>
+<p> I am a programmer learning DOM. I like the color blue and I like to be on my computer.</p>
+    <button id="btn">Add text!</button>
+
+    <script>
+        const body = document.querySelector("body")
+        const btn = document.querySelector("#btn")
+        const paragraph = document.createElement("p")
+        const node = document.createTextNode("Hello World") 
+        paragraph.appendChild(node)
+        btn.addEventListener("click", function(){
+            //console.log(node)
+            //console.log(paragraph)
+            //document.body.insertBefore(paragraph, btn)
+            body.appendChild(paragraph)
+        })
+    </script>

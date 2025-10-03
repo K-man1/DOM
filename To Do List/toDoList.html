@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="toDoList.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" name="random" id ="input" placeholder="Enter today's work" required>
+    <button id="btn">Add Task</button>
+    <ol></ol></div>
+    <script>
+        const btn = document.querySelector("#btn")
+        const body = document.querySelector("body")
+        const ol = document.querySelector("ol")
+        btn.addEventListener("click", function(){
+            if (document.getElementById("input").value === ""){
+            console.log("Error")}
+
+            else 
+            userInput = document.getElementById("input").value
+            const paragraph = document.createElement("li")
+            let node = document.createTextNode(userInput)
+        paragraph.appendChild(node)
+        ol.appendChild(paragraph)
+        paragraph.style.textAlign = "center"
+        document.getElementById("input").value = "";
+        })
+        
+        
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+* {
+    font-family: 'Rubik', sans-serif;
+    background-color: bisque ;
+}
+
+h1 {
+text-align: center;
+margin-top: 100px;
+}
+
+input {
+    padding: 10px;
+    font-size: 25px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    padding:10px;
+    cursor: pointer;
+}
+button:hover {
+    background-color:lightgrey;
+}
+.result {
+    font-size: 50px;
+}
+
+/* 
+1. Put button into form tag
+2. Everything inside container
+3. don't ever use div always use a class/id
+4. fix display: flex and margin:auto by using div and delcaring height & widtih of parent
+5. no p use span for dynamic elements that will change using DOM
+*/

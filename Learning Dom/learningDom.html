@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning DOM</title>
+    <script src="script.js"></script>
+
+    <style>
+        
+    </style>
+</head>
+<body>
+    
+<h1 id="text" style="color:blue;">Learning DOM</h1>
+    <button id="btn">button!!!</button>
+
+    <script>
+        const body = document.querySelector("body")
+        const text = document.querySelector("#text");
+
+        const btn = document.querySelector("#btn")
+        btn.addEventListener("click", function()
+        {
+            if (text.style.color === "blue"){
+            text.style.color = "red"}
+            else if (text.style.color === "red"){
+            text.style.color = "blue"}
+
+            body.style.backgroundColor = "gray";
+        })
+    </script>
+</body>
+</html>
